@@ -2,7 +2,7 @@ import { reaction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import React, { createContext, ReactElement, useState } from 'react';
 import { message } from 'antd';
-import Schema from './types/Schema';
+import Schema, { Language } from './types/Schema';
 import SchemaDescription from './types/SchemaDescription';
 import Editor from './components/editor';
 
@@ -26,6 +26,10 @@ export interface JsonSchemaEditorProps {
    * @zh 初始化 Schema
    */
   data?: Schema | string;
+  /**
+   * @zh 国际化
+   */
+  language?: Language;
 }
 
 export const SchemaMobxContext = createContext<SchemaDescription>(new SchemaDescription());
@@ -73,7 +77,7 @@ const JsonSchemaObserverEditor = observer((props: JsonSchemaEditorProps) => {
   return (
     <div>
       <SchemaMobxContext.Provider value={contextVal}>
-        <Editor jsonEditor={props.jsonEditor} mock={props.mock} />
+        <Editor jsonEditor={props.jsonEditor} mock={props.mock} language={props.language} />
       </SchemaMobxContext.Provider>
     </div>
   );

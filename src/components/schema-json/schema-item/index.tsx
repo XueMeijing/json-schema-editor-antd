@@ -10,6 +10,7 @@ import {
   PlusOutlined,
   SettingOutlined,
 } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import { SchemaMobxContext } from '../../..';
 import { EditorContext } from '../../editor';
 import FieldInput from '../../field-input';
@@ -36,6 +37,7 @@ interface SchemaItemProp {
 
 const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
   const { data, name, prefix, showAdv, showEdit } = props;
+  const { t } = useTranslation();
 
   // noinspection DuplicatedCode
   const [tagPaddingLeftStyle, setTagPaddingLeftStyle] = useState<CSSProperties>({});
@@ -154,7 +156,7 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
                 <Col flex="auto">
                   <FieldInput
                     addonAfter={
-                      <Tooltip placement="top" title="required">
+                      <Tooltip placement="top" title={t('REQUIRED')}>
                         <Checkbox
                           style={{ paddingLeft: 0 }}
                           onChange={(event) => handleEnableRequire(event.target.checked)}
@@ -201,7 +203,7 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
                     onClick={() => handleShowEdit('title')}
                   />
                 }
-                placeholder="title"
+                placeholder={t('TITLE')}
                 value={value.title}
                 onChange={(event) => handleChangeTitle(event.target.value)}
               />
@@ -215,7 +217,7 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
                     onClick={() => handleShowEdit('description')}
                   />
                 }
-                placeholder="description"
+                placeholder={t('DESCRIPTION')}
                 value={value.description}
                 onChange={(event) => handleChangeDesc(event.target.value)}
               />
@@ -227,7 +229,7 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
           <Row gutter={8}>
             <Col span={8}>
               <span className="adv-set" onClick={handleShowAdv}>
-                <Tooltip placement="top" title="adv_setting">
+                <Tooltip placement="top" title={t('ADV_SETTING')}>
                   <SettingOutlined />
                 </Tooltip>
               </span>
@@ -242,7 +244,7 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
                 {value.type === 'object' ? (
                   <DropPlus prefix={prefix} name={name} />
                 ) : (
-                  <Tooltip placement="top" title="add_sibling_node">
+                  <Tooltip placement="top" title={t('ADD_SIBLING_NODE')}>
                     <PlusOutlined />
                   </Tooltip>
                 )}

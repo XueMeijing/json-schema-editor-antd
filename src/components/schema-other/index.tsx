@@ -1,4 +1,5 @@
 import React, { ReactElement, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import SchemaString from './schema-string';
 import SchemaNumber from './schema-number';
 import SchemaBoolean from './schema-boolean';
@@ -38,11 +39,12 @@ const SchemaOther = (props: SchemaOtherProp): ReactElement => {
   const optionForm = mapping(JSON.parse(data));
 
   const context = useContext(EditorContext);
+  const { t } = useTranslation();
 
   return (
     <div>
       <div>{optionForm}</div>
-      <div className="default-setting">all_setting</div>
+      <div className="default-setting">{t('ALL_SETTING')}</div>
       <QuietEditor
         height={300}
         value={data}

@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import { Checkbox, Col, Input, InputNumber, Row, Select, Tooltip } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import { STRING_FORMATS } from '../../../constants';
 import { EditorContext } from '../../editor';
 import Schema from '../../../types/Schema';
@@ -11,6 +12,8 @@ interface SchemaStringProp {
 
 const SchemaString = (props: SchemaStringProp): ReactElement => {
   const { data } = props;
+  const { t } = useTranslation();
+
   const [checked, setChecked] = useState<boolean>(props.data.enum !== undefined);
 
   const format = STRING_FORMATS;
@@ -61,7 +64,7 @@ const SchemaString = (props: SchemaStringProp): ReactElement => {
 
   return (
     <div>
-      <div className="default-setting">base_setting</div>
+      <div className="default-setting">{t('BASIC_SETTING')}</div>
       <Row className="other-row" align="middle">
         <Col span={4} className="other-label">
           default：

@@ -1,4 +1,4 @@
-import React, { createContext, ReactElement, useContext, useState } from 'react';
+import React, { createContext, ReactElement, useContext, useState, useEffect } from 'react';
 import { createSchema } from 'genson-js/dist';
 import { Button, Checkbox, Col, Input, message, Modal, Row, Select, Tabs, Tooltip } from 'antd';
 import {
@@ -10,6 +10,7 @@ import {
   SettingOutlined,
 } from '@ant-design/icons';
 import { observer } from 'mobx-react';
+import { useTranslation } from 'react-i18next';
 import { SCHEMA_TYPE } from '../../constants';
 import { SchemaMobxContext } from '../../index';
 import { handleSchema } from '../../utils/SchemaUtils';
@@ -17,7 +18,8 @@ import QuietEditor from '../quiet-editor';
 import SchemaOther from '../schema-other';
 import MockSelect from '../mock-select';
 import SchemaJson from '../schema-json';
-import Schema from '../../types/Schema';
+import Schema, { Language } from '../../types/Schema';
+import i18n from '../../i18n';
 
 interface EditorContextProp {
   changeCustomValue: (newValue: Schema) => void;
@@ -32,10 +34,12 @@ export const EditorContext = createContext<EditorContextProp>({
 interface EditorProp {
   jsonEditor?: boolean;
   mock?: boolean;
+  language?: Language;
 }
 
 const Editor = observer((props: EditorProp): ReactElement => {
   const schemaMobx = useContext(SchemaMobxContext);
+  const { t } = useTranslation();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [stateVal, setStateVal] = useState<Record<string, any>>({
@@ -55,6 +59,12 @@ const Editor = observer((props: EditorProp): ReactElement => {
   const [jsonSchemaData, setJsonSchemaData] = useState<string>();
   const [jsonData, setJsonData] = useState<string | undefined>();
   const [importJsonType, setImportJsonType] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (props.language) {
+      i18n.changeLanguage(props.language);
+    }
+  }, []);
 
   // json 导入弹窗
   const showModal = () => {
@@ -271,24 +281,24 @@ const Editor = observer((props: EditorProp): ReactElement => {
     >
       <div className="json-schema-react-editor">
         <Button type="primary" onClick={showModal}>
-          import_json
+          {t('IMPORT_JSON')}
         </Button>
         <Modal
           width={750}
           maskClosable={false}
           visible={visible}
-          title="import_json"
+          title={t('IMPORT_JSON')}
           onOk={handleOk}
           onCancel={handleCancel}
           className="json-schema-react-editor-import-modal"
-          okText="ok"
-          cancelText="cancel"
+          okText={t('OK')}
+          cancelText={t('CANCEL')}
           footer={[
             <Button key="back" onClick={handleCancel}>
-              cancel
+              {t('CANCEL')}
             </Button>,
             <Button key="submit" type="primary" onClick={handleOk}>
-              ok
+              {t('OK')}
             </Button>,
           ]}
         >
@@ -330,8 +340,8 @@ const Editor = observer((props: EditorProp): ReactElement => {
           visible={editVisible}
           onOk={() => handleEditOk(editorModalName)}
           onCancel={handleEditCancel}
-          okText="ok"
-          cancelText="cancel"
+          okText={t('OK')}
+          cancelText={t('CANCEL')}
         >
           <Input.TextArea
             value={stateVal[editorModalName]}
@@ -343,14 +353,14 @@ const Editor = observer((props: EditorProp): ReactElement => {
 
         {advVisible && (
           <Modal
-            title="adv_setting"
+            title={t('ADV_SETTING')}
             width={750}
             maskClosable={false}
             visible={advVisible}
             onOk={handleAdvOk}
             onCancel={handleAdvCancel}
-            okText="ok"
-            cancelText="cancel"
+            okText={t('OK')}
+            cancelText={t('CANCEL')}
             className="json-schema-react-editor-adv-modal"
           >
             <SchemaOther data={JSON.stringify(stateVal.curItemCustomValue, null, 2)} />
@@ -386,7 +396,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
                           disabled
                           value="root"
                           addonAfter={
-                            <Tooltip placement="top" title="checked_all">
+                            <Tooltip placement="top" title={t('CHECKED_ALL')}>
                               <Checkbox
                                 style={{ paddingRight: 0 }}
                                 checked={checked}
@@ -430,7 +440,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
                   )}
                   <Col span={props.mock ? 5 : 6}>
                     <Input
-                      placeholder="title"
+                      placeholder={t('TITLE')}
                       value={schemaMobx.schema.title}
                       onChange={(ele) => handleChangeValue(['title'], ele.target.value)}
                       addonAfter={
@@ -448,7 +458,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
                           onClick={() => showEdit([], 'description', schemaMobx.schema.description)}
                         />
                       }
-                      placeholder="description"
+                      placeholder={t('DESCRIPTION')}
                       value={schemaMobx.schema.description}
                       onChange={(ele) => handleChangeValue(['description'], ele.target.value)}
                     />
@@ -459,7 +469,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
                 <Row gutter={8}>
                   <Col span={8}>
                     <span className="adv-set" onClick={() => showAdv([], schemaMobx.schema)}>
-                      <Tooltip placement="top" title="adv_setting">
+                      <Tooltip placement="top" title={t('ADV_SETTING')}>
                         <SettingOutlined />
                       </Tooltip>
                     </span>
@@ -467,7 +477,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
                   <Col span={8}>
                     {schemaMobx.schema.type === 'object' ? (
                       <span className="plus" onClick={() => handleAddChildField('properties')}>
-                        <Tooltip placement="top" title="add_child_node">
+                        <Tooltip placement="top" title={t('ADD_CHILD_NODE')}>
                           <PlusOutlined />
                         </Tooltip>
                       </span>

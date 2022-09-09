@@ -1,0 +1,17 @@
+export default {
+  IMPORT_JSON: 'import_json',
+  CANCEL: 'cancel',
+  OK: 'ok',
+  CHECKED_ALL: 'checked_all',
+  TITLE: 'title',
+  DESCRIPTION: 'description',
+  ADV_SETTING: 'adv_setting',
+  ADD_CHILD_NODE: 'add_child_node',
+  SIBLING_NODE: 'sibling_node',
+  CHILD_NODE: 'child_node',
+  ADD_NODE: 'add_node',
+  REQUIRED: 'required',
+  ADD_SIBLING_NODE: 'add_sibling_node',
+  BASIC_SETTING: 'basic_setting',
+  ALL_SETTING: 'all_setting',
+};

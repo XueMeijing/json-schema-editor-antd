@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import { Checkbox, Col, Input, InputNumber, Row, Switch, Tooltip } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import { EditorContext } from '../../editor';
 import Schema from '../../../types/Schema';
 
@@ -23,6 +24,7 @@ const changeOtherValue = (
 
 const SchemaNumber = (props: SchemaNumberProp): ReactElement => {
   const { data } = props;
+  const { t } = useTranslation();
 
   const [checked, setChecked] = useState<boolean>(props.data.enum !== undefined);
   const [enumVal, setEnumVal] = useState<string>(
@@ -113,7 +115,7 @@ const SchemaNumber = (props: SchemaNumberProp): ReactElement => {
 
   return (
     <div>
-      <div className="default-setting">base_setting</div>
+      <div className="default-setting">{t('BASIC_SETTING')}</div>
       <Row className="other-row" align="middle">
         <Col span={4} className="other-label">
           default：

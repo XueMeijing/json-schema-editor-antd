@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 import { Checkbox, Col, Input, Row, Select, Tooltip } from 'antd';
 import { observer } from 'mobx-react';
+import { useTranslation } from 'react-i18next';
 import { SchemaMobxContext } from '../../..';
 import { EditorContext } from '../../editor';
 import { JSONPATH_JOIN_CHAR, SCHEMA_TYPE } from '../../../constants';
@@ -30,6 +31,7 @@ interface SchemaArrayProp {
 
 const SchemaArray = observer((props: SchemaArrayProp): ReactElement => {
   const { data, prefix, showAdv, showEdit } = props;
+  const { t } = useTranslation();
 
   // noinspection DuplicatedCode
   const [tagPaddingLeftStyle, setTagPaddingLeftStyle] = useState<CSSProperties>({});
@@ -153,7 +155,7 @@ const SchemaArray = observer((props: SchemaArrayProp): ReactElement => {
                     onClick={() => handleShowEdit('title')}
                   />
                 }
-                placeholder="title"
+                placeholder={t('TITLE')}
                 value={items.title}
                 onChange={(event) => handleChangeTitle(event.target.value)}
               />
@@ -166,7 +168,7 @@ const SchemaArray = observer((props: SchemaArrayProp): ReactElement => {
                     onClick={() => handleShowEdit('description')}
                   />
                 }
-                placeholder="description"
+                placeholder={t('DESCRIPTION')}
                 value={items.description}
                 onChange={(event) => handleChangeDesc(event.target.value)}
               />
@@ -177,7 +179,7 @@ const SchemaArray = observer((props: SchemaArrayProp): ReactElement => {
           <Row gutter={8}>
             <Col span={8}>
               <span className="adv-set" onClick={handleShowAdv}>
-                <Tooltip placement="top" title="adv_setting">
+                <Tooltip placement="top" title={t('ADV_SETTING')}>
                   <SettingOutlined />
                 </Tooltip>
               </span>
@@ -185,7 +187,7 @@ const SchemaArray = observer((props: SchemaArrayProp): ReactElement => {
             <Col span={8}>
               {items.type === 'object' ? (
                 <span className="plus" onClick={handleAddChildField}>
-                  <Tooltip placement="top" title="add_child_node">
+                  <Tooltip placement="top" title={t('ADD_CHILD_NODE')}>
                     <PlusOutlined />
                   </Tooltip>
                 </span>

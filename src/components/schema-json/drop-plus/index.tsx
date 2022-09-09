@@ -2,6 +2,7 @@ import React, { ReactElement, useContext } from 'react';
 import { Dropdown, Menu, Tooltip } from 'antd';
 import { observer } from 'mobx-react';
 import { PlusOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import { SchemaMobxContext } from '../../..';
 
 interface DropPlusProp {
@@ -11,6 +12,7 @@ interface DropPlusProp {
 
 const DropPlus = observer((props: DropPlusProp): ReactElement => {
   const { prefix, name } = props;
+  const { t } = useTranslation();
 
   const context = useContext(SchemaMobxContext);
 
@@ -24,7 +26,7 @@ const DropPlus = observer((props: DropPlusProp): ReactElement => {
                 context.addField({ keys: prefix, name });
               }}
             >
-              sibling_node
+              {t('SIBLING_NODE')}
             </span>
           ),
           key: 'sibling_node',
@@ -40,7 +42,7 @@ const DropPlus = observer((props: DropPlusProp): ReactElement => {
                 context.addChildField({ keys: prefix.concat(name, 'properties') });
               }}
             >
-              child_node
+              {t('CHILD_NODE')}
             </span>
           ),
           key: 'child_node',
@@ -50,7 +52,7 @@ const DropPlus = observer((props: DropPlusProp): ReactElement => {
   );
 
   return (
-    <Tooltip placement="top" title="add_node">
+    <Tooltip placement="top" title={t('ADD_NODE')}>
       <Dropdown overlay={menu}>
         <PlusOutlined style={{ color: '#2395f1' }} />
       </Dropdown>

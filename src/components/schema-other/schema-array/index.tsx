@@ -1,5 +1,6 @@
 import React, { ReactElement, useContext } from 'react';
 import { Col, InputNumber, Row, Switch, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { EditorContext } from '../../editor';
 import Schema from '../../../types/Schema';
@@ -21,6 +22,7 @@ const changeOtherValue = (
 const SchemaArray = (props: SchemaArrayProp): ReactElement => {
   const { data } = props;
   const context = useContext(EditorContext);
+  const { t } = useTranslation();
 
   function handleUniqueItemsValueChange(value) {
     changeOtherValue(value, 'uniqueItems', data, context.changeCustomValue);
@@ -36,7 +38,7 @@ const SchemaArray = (props: SchemaArrayProp): ReactElement => {
 
   return (
     <div>
-      <div className="default-setting">base_setting</div>
+      <div className="default-setting">{t('BASIC_SETTING')}</div>
       <Row className="other-row" align="middle">
         <Col span={6} className="other-label">
           <span>

@@ -21,3 +21,5 @@ export default interface Schema {
   maxItems?: number;
   uniqueItems?: boolean;
 }
+
+export type Language = 'zh' | 'en';
