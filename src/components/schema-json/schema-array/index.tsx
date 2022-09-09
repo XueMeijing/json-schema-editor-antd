@@ -129,7 +129,7 @@ const SchemaArray = observer((props: SchemaArrayProp): ReactElement => {
             </Col>
             <Col span={context.mock ? (context.description ? 3 : 5) : context.description ? 4 : 7}>
               <Select style={{ width: '100%' }} onChange={handleChangeType} value={items.type}>
-                {SCHEMA_TYPE.map((item, index) => {
+                {(context.schemaType || SCHEMA_TYPE).map((item, index) => {
                   return (
                     <Select.Option value={item} key={index}>
                       {item}

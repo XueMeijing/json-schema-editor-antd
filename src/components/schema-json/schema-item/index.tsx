@@ -175,7 +175,7 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
 
             <Col span={context.mock ? (context.description ? 3 : 5) : context.description ? 4 : 7}>
               <Select style={{ width: '100%' }} onChange={handleChangeType} value={value.type}>
-                {SCHEMA_TYPE.map((item, index) => {
+                {(context.schemaType || SCHEMA_TYPE).map((item, index) => {
                   return (
                     <Option value={item} key={index}>
                       {item}

@@ -18,19 +18,21 @@ import QuietEditor from '../quiet-editor';
 import SchemaOther from '../schema-other';
 import MockSelect from '../mock-select';
 import SchemaJson from '../schema-json';
-import Schema, { Language } from '../../types/Schema';
+import Schema, { Language, SchemaTypeItem } from '../../types/Schema';
 import i18n from '../../i18n';
 
 interface EditorContextProp {
   changeCustomValue: (newValue: Schema) => void;
   mock: boolean;
   description: boolean;
+  schemaType: Array<SchemaTypeItem>;
 }
 
 export const EditorContext = createContext<EditorContextProp>({
   changeCustomValue: () => {},
   mock: false,
   description: true,
+  schemaType: SCHEMA_TYPE,
 });
 
 interface EditorProp {
@@ -38,6 +40,7 @@ interface EditorProp {
   mock?: boolean;
   language?: Language;
   description?: boolean;
+  schemaType?: Array<SchemaTypeItem>;
 }
 
 const Editor = observer((props: EditorProp): ReactElement => {
@@ -281,6 +284,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
         changeCustomValue,
         mock: props.mock,
         description: props.description,
+        schemaType: props.schemaType,
       }}
     >
       <div className="json-schema-react-editor">
@@ -424,7 +428,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
                       onChange={(value) => handleChangeType(`type`, value)}
                       value={schemaMobx.schema.type || 'object'}
                     >
-                      {SCHEMA_TYPE.map((item, index) => {
+                      {(props.schemaType || SCHEMA_TYPE).map((item, index) => {
                         return (
                           <Select.Option value={item} key={index}>
                             {item}

@@ -1,3 +1,5 @@
+import { SchemaTypeItem } from './types/Schema';
+
 export const JSONPATH_JOIN_CHAR = '.';
 
 export const STRING_FORMATS = [
@@ -60,4 +62,11 @@ export const MOCK_SOURCE = [
   { name: '协议', mock: '@protocol' },
 ];
 
-export const SCHEMA_TYPE = ['string', 'number', 'array', 'object', 'boolean', 'integer'];
+export const SCHEMA_TYPE: Array<SchemaTypeItem> = [
+  'string',
+  'number',
+  'array',
+  'object',
+  'boolean',
+  'integer',
+];
