@@ -30,6 +30,10 @@ export interface JsonSchemaEditorProps {
    * @zh 国际化
    */
   language?: Language;
+  /**
+   * @zh 是否显示description
+   */
+  description?: boolean;
 }
 
 export const SchemaMobxContext = createContext<SchemaDescription>(new SchemaDescription());
@@ -77,7 +81,12 @@ const JsonSchemaObserverEditor = observer((props: JsonSchemaEditorProps) => {
   return (
     <div>
       <SchemaMobxContext.Provider value={contextVal}>
-        <Editor jsonEditor={props.jsonEditor} mock={props.mock} language={props.language} />
+        <Editor
+          jsonEditor={props.jsonEditor}
+          mock={props.mock}
+          language={props.language}
+          description={props.description === undefined ? true : props.description}
+        />
       </SchemaMobxContext.Provider>
     </div>
   );

@@ -173,7 +173,7 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
               </Row>
             </Col>
 
-            <Col span={context.mock ? 3 : 4}>
+            <Col span={context.mock ? (context.description ? 3 : 5) : context.description ? 4 : 7}>
               <Select style={{ width: '100%' }} onChange={handleChangeType} value={value.type}>
                 {SCHEMA_TYPE.map((item, index) => {
                   return (
@@ -195,7 +195,7 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
               </Col>
             )}
 
-            <Col span={context.mock ? 5 : 6}>
+            <Col span={context.mock ? (context.description ? 5 : 8) : context.description ? 6 : 9}>
               <Input
                 addonAfter={
                   <EditOutlined
@@ -209,19 +209,21 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
               />
             </Col>
 
-            <Col span={context.mock ? 5 : 6}>
-              <Input
-                addonAfter={
-                  <EditOutlined
-                    className="input_icon_editor"
-                    onClick={() => handleShowEdit('description')}
-                  />
-                }
-                placeholder={t('DESCRIPTION')}
-                value={value.description}
-                onChange={(event) => handleChangeDesc(event.target.value)}
-              />
-            </Col>
+            {context.description && (
+              <Col span={context.mock ? 5 : 6}>
+                <Input
+                  addonAfter={
+                    <EditOutlined
+                      className="input_icon_editor"
+                      onClick={() => handleShowEdit('description')}
+                    />
+                  }
+                  placeholder={t('DESCRIPTION')}
+                  value={value.description}
+                  onChange={(event) => handleChangeDesc(event.target.value)}
+                />
+              </Col>
+            )}
           </Row>
         </Col>
 

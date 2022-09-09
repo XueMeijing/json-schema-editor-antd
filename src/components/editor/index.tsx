@@ -24,17 +24,20 @@ import i18n from '../../i18n';
 interface EditorContextProp {
   changeCustomValue: (newValue: Schema) => void;
   mock: boolean;
+  description: boolean;
 }
 
 export const EditorContext = createContext<EditorContextProp>({
   changeCustomValue: () => {},
   mock: false,
+  description: true,
 });
 
 interface EditorProp {
   jsonEditor?: boolean;
   mock?: boolean;
   language?: Language;
+  description?: boolean;
 }
 
 const Editor = observer((props: EditorProp): ReactElement => {
@@ -277,6 +280,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
       value={{
         changeCustomValue,
         mock: props.mock,
+        description: props.description,
       }}
     >
       <div className="json-schema-react-editor">
@@ -414,7 +418,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
                       </Col>
                     </Row>
                   </Col>
-                  <Col span={props.mock ? 3 : 4}>
+                  <Col span={props.mock ? (props.description ? 3 : 5) : props.description ? 4 : 7}>
                     <Select
                       style={{ width: '100%' }}
                       onChange={(value) => handleChangeType(`type`, value)}
@@ -438,7 +442,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
                       />
                     </Col>
                   )}
-                  <Col span={props.mock ? 5 : 6}>
+                  <Col span={props.mock ? (props.description ? 5 : 8) : props.description ? 6 : 9}>
                     <Input
                       placeholder={t('TITLE')}
                       value={schemaMobx.schema.title}
@@ -451,18 +455,22 @@ const Editor = observer((props: EditorProp): ReactElement => {
                       }
                     />
                   </Col>
-                  <Col span={props.mock ? 5 : 6}>
-                    <Input
-                      addonAfter={
-                        <EditOutlined
-                          onClick={() => showEdit([], 'description', schemaMobx.schema.description)}
-                        />
-                      }
-                      placeholder={t('DESCRIPTION')}
-                      value={schemaMobx.schema.description}
-                      onChange={(ele) => handleChangeValue(['description'], ele.target.value)}
-                    />
-                  </Col>
+                  {props.description && (
+                    <Col span={props.mock ? 5 : 6}>
+                      <Input
+                        addonAfter={
+                          <EditOutlined
+                            onClick={() => {
+                              showEdit([], 'description', schemaMobx.schema.description);
+                            }}
+                          />
+                        }
+                        placeholder={t('DESCRIPTION')}
+                        value={schemaMobx.schema.description}
+                        onChange={(ele) => handleChangeValue(['description'], ele.target.value)}
+                      />
+                    </Col>
+                  )}
                 </Row>
               </Col>
               <Col flex="66px">
