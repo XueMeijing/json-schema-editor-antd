@@ -128,7 +128,12 @@ const SchemaArray = observer((props: SchemaArrayProp): ReactElement => {
               </Row>
             </Col>
             <Col span={context.mock ? (context.description ? 3 : 5) : context.description ? 4 : 7}>
-              <Select style={{ width: '100%' }} onChange={handleChangeType} value={items.type}>
+              <Select
+                style={{ width: '100%' }}
+                onChange={handleChangeType}
+                value={items.type}
+                disabled={context.disabled}
+              >
                 {(context.schemaType || SCHEMA_TYPE).map((item, index) => {
                   return (
                     <Select.Option value={item} key={index}>
@@ -152,12 +157,13 @@ const SchemaArray = observer((props: SchemaArrayProp): ReactElement => {
                 addonAfter={
                   <EditOutlined
                     className="input_icon_editor"
-                    onClick={() => handleShowEdit('title')}
+                    onClick={() => !context.disabled && handleShowEdit('title')}
                   />
                 }
                 placeholder={t('TITLE')}
                 value={items.title}
                 onChange={(event) => handleChangeTitle(event.target.value)}
+                disabled={context.disabled}
               />
             </Col>
             {context.description && (
@@ -166,37 +172,41 @@ const SchemaArray = observer((props: SchemaArrayProp): ReactElement => {
                   addonAfter={
                     <EditOutlined
                       className="input_icon_editor"
-                      onClick={() => handleShowEdit('description')}
+                      onClick={() => !context.disabled && handleShowEdit('description')}
                     />
                   }
                   placeholder={t('DESCRIPTION')}
                   value={items.description}
                   onChange={(event) => handleChangeDesc(event.target.value)}
+                  disabled={context.disabled}
                 />
               </Col>
             )}
           </Row>
         </Col>
-        <Col flex="66px">
-          <Row gutter={8}>
-            <Col span={8}>
-              <span className="adv-set" onClick={handleShowAdv}>
-                <Tooltip placement="top" title={t('ADV_SETTING')}>
-                  <SettingOutlined />
-                </Tooltip>
-              </span>
-            </Col>
-            <Col span={8}>
-              {items.type === 'object' ? (
-                <span className="plus" onClick={handleAddChildField}>
-                  <Tooltip placement="top" title={t('ADD_CHILD_NODE')}>
-                    <PlusOutlined />
+
+        {!context.disabled && (
+          <Col flex="66px">
+            <Row gutter={8}>
+              <Col span={8}>
+                <span className="adv-set" onClick={handleShowAdv}>
+                  <Tooltip placement="top" title={t('ADV_SETTING')}>
+                    <SettingOutlined />
                   </Tooltip>
                 </span>
-              ) : null}
-            </Col>
-          </Row>
-        </Col>
+              </Col>
+              <Col span={8}>
+                {items.type === 'object' ? (
+                  <span className="plus" onClick={handleAddChildField}>
+                    <Tooltip placement="top" title={t('ADD_CHILD_NODE')}>
+                      <PlusOutlined />
+                    </Tooltip>
+                  </span>
+                ) : null}
+              </Col>
+            </Row>
+          </Col>
+        )}
       </Row>
       <div style={{ paddingTop: 8 }}>{mapping(prefixArray, items, showEdit, showAdv)}</div>
     </div>

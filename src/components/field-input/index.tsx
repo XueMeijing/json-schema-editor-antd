@@ -5,6 +5,7 @@ interface FieldInputProp {
   value: string;
   addonAfter?: ReactNode;
   onChange: (value: string) => boolean;
+  disabled: boolean;
 }
 
 const FieldInput = (props: FieldInputProp): ReactElement => {
@@ -29,6 +30,7 @@ const FieldInput = (props: FieldInputProp): ReactElement => {
       addonAfter={props.addonAfter}
       value={fieldValue}
       onChange={(ele) => handleChange(ele.target.value)}
+      disabled={props.disabled}
     />
   );
 };

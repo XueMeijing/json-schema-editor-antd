@@ -163,18 +163,25 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
                           checked={
                             data.required === undefined ? false : data.required.indexOf(name) !== -1
                           }
+                          disabled={context.disabled}
                         />
                       </Tooltip>
                     }
                     onChange={handleChangeName}
                     value={name}
+                    disabled={context.disabled}
                   />
                 </Col>
               </Row>
             </Col>
 
             <Col span={context.mock ? (context.description ? 3 : 5) : context.description ? 4 : 7}>
-              <Select style={{ width: '100%' }} onChange={handleChangeType} value={value.type}>
+              <Select
+                style={{ width: '100%' }}
+                onChange={handleChangeType}
+                value={value.type}
+                disabled={context.disabled}
+              >
                 {(context.schemaType || SCHEMA_TYPE).map((item, index) => {
                   return (
                     <Option value={item} key={index}>
@@ -200,12 +207,13 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
                 addonAfter={
                   <EditOutlined
                     className="input_icon_editor"
-                    onClick={() => handleShowEdit('title')}
+                    onClick={() => !context.disabled && handleShowEdit('title')}
                   />
                 }
                 placeholder={t('TITLE')}
                 value={value.title}
                 onChange={(event) => handleChangeTitle(event.target.value)}
+                disabled={context.disabled}
               />
             </Col>
 
@@ -215,45 +223,48 @@ const SchemaItem = observer((props: SchemaItemProp): ReactElement => {
                   addonAfter={
                     <EditOutlined
                       className="input_icon_editor"
-                      onClick={() => handleShowEdit('description')}
+                      onClick={() => !context.disabled && handleShowEdit('description')}
                     />
                   }
                   placeholder={t('DESCRIPTION')}
                   value={value.description}
                   onChange={(event) => handleChangeDesc(event.target.value)}
+                  disabled={context.disabled}
                 />
               </Col>
             )}
           </Row>
         </Col>
 
-        <Col flex="66px">
-          <Row gutter={8}>
-            <Col span={8}>
-              <span className="adv-set" onClick={handleShowAdv}>
-                <Tooltip placement="top" title={t('ADV_SETTING')}>
-                  <SettingOutlined />
-                </Tooltip>
-              </span>
-            </Col>
-            <Col span={8}>
-              <span className="close" onClick={handleDeleteItem}>
-                <CloseOutlined />
-              </span>
-            </Col>
-            <Col span={8}>
-              <span className="plus" onClick={() => handleAddField(value.type)}>
-                {value.type === 'object' ? (
-                  <DropPlus prefix={prefix} name={name} />
-                ) : (
-                  <Tooltip placement="top" title={t('ADD_SIBLING_NODE')}>
-                    <PlusOutlined />
+        {!context.disabled && (
+          <Col flex="66px">
+            <Row gutter={8}>
+              <Col span={8}>
+                <span className="adv-set" onClick={handleShowAdv}>
+                  <Tooltip placement="top" title={t('ADV_SETTING')}>
+                    <SettingOutlined />
                   </Tooltip>
-                )}
-              </span>
-            </Col>
-          </Row>
-        </Col>
+                </span>
+              </Col>
+              <Col span={8}>
+                <span className="close" onClick={handleDeleteItem}>
+                  <CloseOutlined />
+                </span>
+              </Col>
+              <Col span={8}>
+                <span className="plus" onClick={() => handleAddField(value.type)}>
+                  {value.type === 'object' ? (
+                    <DropPlus prefix={prefix} name={name} />
+                  ) : (
+                    <Tooltip placement="top" title={t('ADD_SIBLING_NODE')}>
+                      <PlusOutlined />
+                    </Tooltip>
+                  )}
+                </span>
+              </Col>
+            </Row>
+          </Col>
+        )}
       </Row>
       <div style={{ paddingTop: 8 }}>{mapping(prefixArray, value, showEdit, showAdv)}</div>
     </div>

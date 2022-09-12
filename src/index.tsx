@@ -38,6 +38,10 @@ export interface JsonSchemaEditorProps {
    * @zh 是否显示description
    */
   schemaType?: Array<SchemaTypeItem>;
+  /**
+   * @zh 所有节点disabled
+   */
+  disabled?: boolean;
 }
 
 export const SchemaMobxContext = createContext<SchemaDescription>(new SchemaDescription());
@@ -91,6 +95,7 @@ const JsonSchemaObserverEditor = observer((props: JsonSchemaEditorProps) => {
           language={props.language}
           description={props.description === undefined ? true : props.description}
           schemaType={props.schemaType}
+          disabled={!!props.disabled}
         />
       </SchemaMobxContext.Provider>
     </div>

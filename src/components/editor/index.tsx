@@ -26,6 +26,7 @@ interface EditorContextProp {
   mock: boolean;
   description: boolean;
   schemaType: Array<SchemaTypeItem>;
+  disabled: boolean;
 }
 
 export const EditorContext = createContext<EditorContextProp>({
@@ -33,6 +34,7 @@ export const EditorContext = createContext<EditorContextProp>({
   mock: false,
   description: true,
   schemaType: SCHEMA_TYPE,
+  disabled: false,
 });
 
 interface EditorProp {
@@ -41,6 +43,7 @@ interface EditorProp {
   language?: Language;
   description?: boolean;
   schemaType?: Array<SchemaTypeItem>;
+  disabled?: boolean;
 }
 
 const Editor = observer((props: EditorProp): ReactElement => {
@@ -285,12 +288,15 @@ const Editor = observer((props: EditorProp): ReactElement => {
         mock: props.mock,
         description: props.description,
         schemaType: props.schemaType,
+        disabled: props.disabled,
       }}
     >
       <div className="json-schema-react-editor">
-        <Button type="primary" onClick={showModal}>
-          {t('IMPORT_JSON')}
-        </Button>
+        {!props.disabled && (
+          <Button type="primary" onClick={showModal}>
+            {t('IMPORT_JSON')}
+          </Button>
+        )}
         <Modal
           width={750}
           maskClosable={false}
@@ -412,7 +418,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
                                   !(
                                     schemaMobx.schema.type === 'object' ||
                                     schemaMobx.schema.type === 'array'
-                                  )
+                                  ) || props.disabled
                                 }
                                 onChange={(event) => changeCheckBox(event.target.checked)}
                               />
@@ -427,6 +433,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
                       style={{ width: '100%' }}
                       onChange={(value) => handleChangeType(`type`, value)}
                       value={schemaMobx.schema.type || 'object'}
+                      disabled={props.disabled}
                     >
                       {(props.schemaType || SCHEMA_TYPE).map((item, index) => {
                         return (
@@ -454,9 +461,12 @@ const Editor = observer((props: EditorProp): ReactElement => {
                       addonAfter={
                         <EditOutlined
                           className="input_icon_editor"
-                          onClick={() => showEdit([], 'title', schemaMobx.schema.title)}
+                          onClick={() => {
+                            !props.disabled && showEdit([], 'title', schemaMobx.schema.title);
+                          }}
                         />
                       }
+                      disabled={props.disabled}
                     />
                   </Col>
                   {props.description && (
@@ -465,38 +475,42 @@ const Editor = observer((props: EditorProp): ReactElement => {
                         addonAfter={
                           <EditOutlined
                             onClick={() => {
-                              showEdit([], 'description', schemaMobx.schema.description);
+                              !props.disabled &&
+                                showEdit([], 'description', schemaMobx.schema.description);
                             }}
                           />
                         }
                         placeholder={t('DESCRIPTION')}
                         value={schemaMobx.schema.description}
                         onChange={(ele) => handleChangeValue(['description'], ele.target.value)}
+                        disabled={props.disabled}
                       />
                     </Col>
                   )}
                 </Row>
               </Col>
-              <Col flex="66px">
-                <Row gutter={8}>
-                  <Col span={8}>
-                    <span className="adv-set" onClick={() => showAdv([], schemaMobx.schema)}>
-                      <Tooltip placement="top" title={t('ADV_SETTING')}>
-                        <SettingOutlined />
-                      </Tooltip>
-                    </span>
-                  </Col>
-                  <Col span={8}>
-                    {schemaMobx.schema.type === 'object' ? (
-                      <span className="plus" onClick={() => handleAddChildField('properties')}>
-                        <Tooltip placement="top" title={t('ADD_CHILD_NODE')}>
-                          <PlusOutlined />
+              {!props.disabled && (
+                <Col flex="66px">
+                  <Row gutter={8}>
+                    <Col span={8}>
+                      <span className="adv-set" onClick={() => showAdv([], schemaMobx.schema)}>
+                        <Tooltip placement="top" title={t('ADV_SETTING')}>
+                          <SettingOutlined />
                         </Tooltip>
                       </span>
-                    ) : null}
-                  </Col>
-                </Row>
-              </Col>
+                    </Col>
+                    <Col span={8}>
+                      {schemaMobx.schema.type === 'object' ? (
+                        <span className="plus" onClick={() => handleAddChildField('properties')}>
+                          <Tooltip placement="top" title={t('ADD_CHILD_NODE')}>
+                            <PlusOutlined />
+                          </Tooltip>
+                        </span>
+                      ) : null}
+                    </Col>
+                  </Row>
+                </Col>
+              )}
             </Row>
             {stateVal.show && <SchemaJson showEdit={showEdit} showAdv={showAdv} />}
           </Col>
