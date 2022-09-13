@@ -46,9 +46,9 @@ const SchemaOther = (props: SchemaOtherProp): ReactElement => {
       <div>{optionForm}</div>
       <div className="default-setting">{t('ALL_SETTING')}</div>
       <QuietEditor
-        height={300}
+        height="300px"
+        width="700px"
         value={data}
-        language="json"
         onChange={(value) => handleInputEditor(value, context.changeCustomValue)}
       />
     </div>

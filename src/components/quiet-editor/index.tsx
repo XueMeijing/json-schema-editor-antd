@@ -1,70 +1,43 @@
+/**
+ * 因为monaco暂未找到使用本地库的解决办法，cdn的js加载慢，所以暂时使用react-ace编辑器
+ */
+
 import React, { ReactElement } from 'react';
-import Editor, { OnChange } from '@monaco-editor/react';
-import { xcodeDefault } from './themes';
+import AceEditor from 'react-ace';
+
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/theme-xcode';
+import 'ace-builds/src-min-noconflict/ext-language_tools';
 
 interface QuietEditorProp {
-  width?: string | number;
-  height?: string | number;
+  width?: string;
+  height?: string;
   value?: string;
-  language?: string;
-  readOnly?: boolean;
-  lineNumbers?: 'on' | 'off' | 'relative' | 'interval';
-  folding?: boolean;
-  renderLineHighlight?: 'all' | 'line' | 'none' | 'gutter';
-  onChange?: OnChange;
+  onChange?: (value: string | undefined) => void;
 }
 
 const QuietEditor = (props: QuietEditorProp): ReactElement => {
-  const {
-    width,
-    lineNumbers = 'on',
-    height,
-    value,
-    folding = true,
-    language,
-    readOnly = false,
-    renderLineHighlight = 'all',
-    onChange,
-  } = props;
-
-  function editorWillMount(monaco) {
-    monaco.editor.defineTheme('x-code-default', xcodeDefault);
-  }
+  const { width, height, value, onChange } = props;
 
   return (
-    <Editor
+    <AceEditor
       height={height}
       width={width}
+      mode="json"
+      theme="xcode"
+      name="blah2"
       value={value}
-      language={language}
       onChange={onChange}
-      beforeMount={editorWillMount}
-      theme="x-code-default"
-      options={{
-        // 只读
-        readOnly,
-        // 关闭行数显示
-        lineNumbers,
-        // 关闭选中行的渲染
-        renderLineHighlight,
-        // 是否折叠
-        folding,
-        smoothScrolling: true,
-        // 编辑器中字体大小
-        fontSize: 13,
-        // 是否可以滚动到最后一行，可以往上滚动超出内容范围
-        scrollBeyondLastLine: false,
-        // 左边空出来的宽度
-        lineDecorationsWidth: 19,
-        // 滚动条样式
-        scrollbar: {
-          verticalScrollbarSize: 5,
-          horizontalScrollbarSize: 5,
-        },
-        // 小地图
-        minimap: {
-          enabled: false,
-        },
+      fontSize={14}
+      showPrintMargin
+      showGutter
+      highlightActiveLine
+      setOptions={{
+        enableBasicAutocompletion: false,
+        enableLiveAutocompletion: false,
+        enableSnippets: false,
+        showLineNumbers: true,
+        tabSize: 2,
       }}
     />
   );

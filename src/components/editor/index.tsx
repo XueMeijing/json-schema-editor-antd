@@ -323,10 +323,10 @@ const Editor = observer((props: EditorProp): ReactElement => {
             }}
           >
             <Tabs.TabPane tab="JSON" key="json">
-              <QuietEditor height={300} language="json" onChange={handleImportJson} />
+              <QuietEditor height="300px" width="700px" onChange={handleImportJson} />
             </Tabs.TabPane>
             <Tabs.TabPane tab="JSON-SCHEMA" key="schema">
-              <QuietEditor height={300} language="json" onChange={handleImportJsonSchema} />
+              <QuietEditor height="300px" width="700px" onChange={handleImportJsonSchema} />
             </Tabs.TabPane>
           </Tabs>
         </Modal>
@@ -385,9 +385,9 @@ const Editor = observer((props: EditorProp): ReactElement => {
           {props.jsonEditor && (
             <Col span={8}>
               <QuietEditor
-                height={500}
+                height="500px"
+                width="700px"
                 value={JSON.stringify(schemaMobx.schema, null, 2)}
-                language="json"
                 onChange={handleParams}
               />
             </Col>
