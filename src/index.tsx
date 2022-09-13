@@ -42,6 +42,10 @@ export interface JsonSchemaEditorProps {
    * @zh 所有节点disabled
    */
   disabled?: boolean;
+  /**
+   * @zh 根节点disabled
+   */
+  rootDisabled?: boolean;
 }
 
 export const SchemaMobxContext = createContext<SchemaDescription>(new SchemaDescription());
@@ -96,6 +100,7 @@ const JsonSchemaObserverEditor = observer((props: JsonSchemaEditorProps) => {
           description={props.description === undefined ? true : props.description}
           schemaType={props.schemaType}
           disabled={!!props.disabled}
+          rootDisabled={!!props.rootDisabled}
         />
       </SchemaMobxContext.Provider>
     </div>

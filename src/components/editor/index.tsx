@@ -44,6 +44,7 @@ interface EditorProp {
   description?: boolean;
   schemaType?: Array<SchemaTypeItem>;
   disabled?: boolean;
+  rootDisabled?: boolean;
 }
 
 const Editor = observer((props: EditorProp): ReactElement => {
@@ -433,7 +434,7 @@ const Editor = observer((props: EditorProp): ReactElement => {
                       style={{ width: '100%' }}
                       onChange={(value) => handleChangeType(`type`, value)}
                       value={schemaMobx.schema.type || 'object'}
-                      disabled={props.disabled}
+                      disabled={props.disabled || props.rootDisabled}
                     >
                       {(props.schemaType || SCHEMA_TYPE).map((item, index) => {
                         return (
