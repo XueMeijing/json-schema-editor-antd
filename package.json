@@ -1,6 +1,6 @@
 {
   "name": "@qiluren/json-schema-editor",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Json Schema 编辑器",
   "main": "./lib/index.js",
   "module": "./es/index.js",

@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
-import { Input, message } from 'antd';
+import { Input } from 'antd';
 
 interface FieldInputProp {
   value: string;
@@ -16,10 +16,6 @@ const FieldInput = (props: FieldInputProp): ReactElement => {
   }, [props.value]);
 
   const handleChange = (value) => {
-    if (value.length === 0) {
-      message.warn('FieldName can not empty.').then();
-      return;
-    }
     if (props.onChange(value) && value) {
       setFieldValue(value);
     }
