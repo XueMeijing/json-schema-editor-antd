@@ -69,4 +69,5 @@ export const SCHEMA_TYPE: Array<SchemaTypeItem> = [
   'object',
   'boolean',
   'integer',
+  'any',
 ];

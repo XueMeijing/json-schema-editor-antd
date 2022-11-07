@@ -24,4 +24,11 @@ export default interface Schema {
 
 export type Language = 'zh' | 'en';
 
-export type SchemaTypeItem = 'string' | 'number' | 'array' | 'object' | 'boolean' | 'integer';
+export type SchemaTypeItem =
+  | 'string'
+  | 'number'
+  | 'array'
+  | 'object'
+  | 'boolean'
+  | 'integer'
+  | 'any';

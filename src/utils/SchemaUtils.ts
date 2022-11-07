@@ -31,6 +31,10 @@ export function getDefaultSchema(type: string): Schema {
       return {
         type: 'integer',
       };
+    case 'any':
+      return {
+        type: 'any',
+      };
     default:
       throw new Error(`Unsupported type: ${type}`);
   }
