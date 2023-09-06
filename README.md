@@ -7,7 +7,7 @@
 [Arco Design](https://arco.design/) 风格：https://github.com/lin-mt/json-schema-editor-arco
 
 ## 快速开始
-
+需要安装arco-cli
 ```
 # 开发
 npm run dev
