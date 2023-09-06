@@ -1,9 +1,4 @@
-const Enzyme = require('enzyme');
-const Adapter = require('enzyme-adapter-react-16');
-
 jest.mock('lodash.debounce');
-
-Enzyme.configure({ adapter: new Adapter() });
 
 if (typeof window !== 'undefined') {
   Object.defineProperty(window, 'matchMedia', {
