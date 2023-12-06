@@ -34,7 +34,7 @@
     "no-param-reassign": 0,
     "no-underscore-dangle": 0,
     "no-useless-constructor": 0,
-    "no-use-before-define": ["error", { "functions": false, "classes": false }],
+    "no-use-before-define": "off",
     "no-unused-vars": [2, { "vars": "all", "args": "none" }],
     "no-restricted-syntax": 0,
     "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],

@@ -64,6 +64,16 @@ export const handleSchema = (schema: Schema): Schema => {
       ) {
         clonedSchema.properties[key].type = 'object';
       }
+
+      if (clonedSchema.properties[key].type === 'integer') {
+        clonedSchema.properties[key].type = 'number';
+      }
+
+      if (clonedSchema.properties[key].type === 'null') {
+        clonedSchema.properties[key].type = 'object';
+        clonedSchema.properties[key].properties = {};
+      }
+
       if (
         clonedSchema.properties[key].type === 'array' ||
         clonedSchema.properties[key].type === 'object'

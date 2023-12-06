@@ -1,6 +1,6 @@
 {
   "name": "@qiluren/json-schema-editor",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Json Schema 编辑器",
   "main": "./lib/index.js",
   "module": "./es/index.js",
@@ -35,8 +35,8 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/shallowequal": "^1.1.1",
-    "@typescript-eslint/eslint-plugin": "4.0.1",
-    "@typescript-eslint/parser": "4.0.1",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
     "arco-scripts": "^1.25.15",
     "chalk": "^2.4.2",
     "concurrently": "^5.3.0",
