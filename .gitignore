@@ -77,3 +77,4 @@ typings/
 /dist
 
 arcoMeta.json
+package-lock.json
