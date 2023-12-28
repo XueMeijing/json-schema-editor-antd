@@ -1,6 +1,6 @@
 {
   "name": "@qiluren/json-schema-editor",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Json Schema 编辑器",
   "main": "./lib/index.js",
   "module": "./es/index.js",
@@ -24,6 +24,10 @@
     "clean": "rm -rf es lib dist docs",
     "prepublishOnly": "npm run clean && npm run build && npm run docgen",
     "preview": "arco preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:XueMeijing/json-schema-editor-antd.git"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.1.11",

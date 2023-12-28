@@ -70,8 +70,7 @@ export const handleSchema = (schema: Schema): Schema => {
       }
 
       if (clonedSchema.properties[key].type === 'null') {
-        clonedSchema.properties[key].type = 'object';
-        clonedSchema.properties[key].properties = {};
+        clonedSchema.properties[key].type = 'any';
       }
 
       if (
